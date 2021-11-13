@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+package song;
+
+message Note {
+  optional int32 pitch = 1;
+  optional int32 velocity = 2;
+  optional int64 start_tick = 3;
+  optional float start_time = 4;
+  optional int64 end_tick = 5;
+  optional float end_time = 6;
+}
+
+message TempoEvent {
+  optional int64 ticks = 1;
+	optional int32 bpm = 2;
+	optional float time = 3;
+}
+
+message TimeSignatureEvent {
+  optional int64 ticks = 1;
+	optional int32 numerator = 2;
+	optional int32 denominator = 3;
+}
+
+message InstrumentInfo {
+  optional int32 program = 1;
+  optional bool is_drum = 2;
+}
+
+message Track {
+  optional InstrumentInfo instrument = 1;
+  repeated Note notes = 2;
+  repeated InstrumentInfo suggested_instruments = 3;
+}
+
+message Song {
+  optional int32 PPQ = 1;
+  repeated TempoEvent tempos = 2;
+  repeated TimeSignatureEvent time_signatures = 3;
+  optional int64 last_tick = 4;
+  optional float duration = 5;
+  repeated Track tracks = 6;
+}
