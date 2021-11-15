@@ -13,7 +13,7 @@ message Note {
 
 message TempoEvent {
   optional int64 ticks = 1;
-	optional int32 bpm = 2;
+	optional float bpm = 2;
 	optional float time = 3;
 }
 
