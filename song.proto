@@ -33,6 +33,8 @@ message Track {
   repeated Note notes = 2;
   repeated InstrumentInfo suggested_instruments = 3;
   optional string uuid = 4; // Assigned by client.
+  optional float volume = 5;
+  optional bool solo = 6;
 }
 
 message Song {
