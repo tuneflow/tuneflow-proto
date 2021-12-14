@@ -35,6 +35,7 @@ message Track {
   optional string uuid = 4; // Assigned by client.
   optional float volume = 5;
   optional bool solo = 6;
+  optional bool muted = 7;
 }
 
 message Song {
