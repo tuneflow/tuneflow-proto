@@ -36,6 +36,7 @@ message Track {
   optional float volume = 5;
   optional bool solo = 6;
   optional bool muted = 7;
+  optional int32 rank = 8; // Assigned by client.
 }
 
 message Song {
