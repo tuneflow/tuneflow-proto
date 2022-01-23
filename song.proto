@@ -37,8 +37,8 @@ message Track {
   optional bool solo = 6;
   optional bool muted = 7;
   optional int32 rank = 8; // Assigned by client.
-  optional int64 track_start_tick = 9;
-  optional int64 track_end_tick = 10;
+  optional int64 track_start_tick = 9; // Assigned by client.
+  optional int64 track_end_tick = 10; // Assigned by client.
 }
 
 message Song {
