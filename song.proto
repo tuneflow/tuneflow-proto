@@ -29,8 +29,7 @@ message InstrumentInfo {
 }
 
 message AudioPluginInfo {
-  optional string local_id = 1; // Assigned by client. Do not store in cloud.
-  optional string tf_id = 2;
+  optional string tf_id = 1;
 }
 
 message Track {
