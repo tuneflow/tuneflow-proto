@@ -28,6 +28,11 @@ message InstrumentInfo {
   optional bool is_drum = 2;
 }
 
+message AudioPluginInfo {
+  optional string local_id = 1; // Assigned by client. Do not store in cloud.
+  optional string tf_id = 2;
+}
+
 message Track {
   optional InstrumentInfo instrument = 1;
   repeated Note notes = 2;
@@ -39,6 +44,8 @@ message Track {
   optional int32 rank = 8; // Assigned by client.
   optional int64 track_start_tick = 9; // Assigned by client.
   optional int64 track_end_tick = 10; // Assigned by client.
+  optional AudioPluginInfo sampler_plugin = 11;
+  repeated AudioPluginInfo audio_plugin = 12;
 }
 
 message Song {
