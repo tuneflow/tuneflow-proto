@@ -35,7 +35,7 @@ message AudioPluginInfo {
 
 message Track {
   optional InstrumentInfo instrument = 1;
-  repeated Note notes = 2;
+  repeated Note notes = 2; // Deprecated, use clips instead.
   repeated InstrumentInfo suggested_instruments = 3;
   optional string uuid = 4; // Assigned by client.
   optional float volume = 5;
@@ -46,6 +46,16 @@ message Track {
   optional int64 track_end_tick = 10; // Assigned by client.
   optional AudioPluginInfo sampler_plugin = 11;
   repeated AudioPluginInfo audio_plugin = 12;
+  repeated Clip clips = 13;
+}
+
+message Clip {
+  optional int64 clip_start_tick = 1;
+  optional int64 clip_end_tick = 2;
+  // Notes will use absolute ticks.
+  // This will be all the notes in the clip, including
+  // those that may not be in the clip's range.
+  repeated Note notes = 3;
 }
 
 message Song {
