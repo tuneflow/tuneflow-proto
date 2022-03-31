@@ -50,8 +50,7 @@ message Track {
 }
 
 message Clip {
-  // Avoid using "id" as the name as it will conflict with many internal implementations of other libraries.
-  optional string uid = 1;
+  optional string id = 1;
   optional int64 clip_start_tick = 2;
   optional int64 clip_end_tick = 3;
   // Notes will use absolute ticks.
