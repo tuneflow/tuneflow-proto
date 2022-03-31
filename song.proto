@@ -50,12 +50,13 @@ message Track {
 }
 
 message Clip {
-  optional int64 clip_start_tick = 1;
-  optional int64 clip_end_tick = 2;
+  optional string id = 1;
+  optional int64 clip_start_tick = 2;
+  optional int64 clip_end_tick = 3;
   // Notes will use absolute ticks.
   // This will be all the notes in the clip, including
   // those that may not be in the clip's range.
-  repeated Note notes = 3;
+  repeated Note notes = 4;
 }
 
 message Song {
