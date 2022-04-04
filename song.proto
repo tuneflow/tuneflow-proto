@@ -35,7 +35,7 @@ message AudioPluginInfo {
 
 message Track {
   optional InstrumentInfo instrument = 1;
-  repeated Note notes = 2; // Deprecated, use clips instead.
+  repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
   repeated InstrumentInfo suggested_instruments = 3;
   optional string uuid = 4; // Assigned by client.
   optional float volume = 5;
