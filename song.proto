@@ -9,6 +9,7 @@ message Note {
   optional float start_time = 4;
   optional int64 end_tick = 5;
   optional float end_time = 6;
+  optional uint32 id = 7; // Assigned by client.
 }
 
 message TempoEvent {
