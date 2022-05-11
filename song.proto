@@ -36,6 +36,7 @@ message AudioPluginInfo {
   optional string base64_states = 4;
 }
 
+// Next id: 15.
 message Track {
   optional InstrumentInfo instrument = 1;
   repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
@@ -50,6 +51,8 @@ message Track {
   optional AudioPluginInfo sampler_plugin = 11;
   repeated AudioPluginInfo audio_plugin = 12;
   repeated Clip clips = 13;
+  /** A value ranging from -64 to 63, which corresponds to midi value 0-127. */
+  optional int32 pan = 14;
 }
 
 message Clip {
