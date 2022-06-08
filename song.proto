@@ -36,7 +36,34 @@ message AudioPluginInfo {
   optional string base64_states = 4;
 }
 
-// Next id: 16.
+message AutomatableParam {
+  enum SourceType {
+    UNDEFINED = 0;
+    VOLUME = 1;
+    PAN = 2;
+    AUDIO_PLUGIN = 3;
+  }
+
+  message Source {
+    optional SourceType type = 1;
+    optional string audio_plugin_id = 2; // Required when type is AUDIO_PLUGIN.
+    optional string param_id = 3; // Required when type is AUDIO_PLUGIN.
+  }
+
+  message ParamValue {
+    optional int64 tick = 1;
+    /** A value between 0 to 1, the actual value needs to be multiplied by the range of this param. */
+    optional float value = 2;
+  }
+
+  /** Identifying which param this is automating. */
+  optional Source source = 1;
+
+  /** All the automation points. */
+  repeated ParamValue values = 2;
+}
+
+// Next id: 17.
 message Track {
   optional InstrumentInfo instrument = 1;
   repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
@@ -54,6 +81,8 @@ message Track {
   /** A value ranging from -64 to 63, which corresponds to midi value 0-127. */
   optional int32 pan = 14;
   optional string name = 15;
+  /** Each item corresponds to one param and all its automation points. */
+  repeated AutomatableParam automation_params = 16;
 }
 
 message Clip {
