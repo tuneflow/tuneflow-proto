@@ -37,15 +37,15 @@ message AudioPluginInfo {
 }
 
 message AutomatableParam {
-  enum SourceType {
+  enum TargetType {
     UNDEFINED = 0;
     VOLUME = 1;
     PAN = 2;
     AUDIO_PLUGIN = 3;
   }
 
-  message Source {
-    optional SourceType type = 1;
+  message Target {
+    optional TargetType type = 1;
     optional string audio_plugin_id = 2; // Required when type is AUDIO_PLUGIN.
     optional string param_id = 3; // Required when type is AUDIO_PLUGIN.
   }
@@ -57,10 +57,13 @@ message AutomatableParam {
   }
 
   /** Identifying which param this is automating. */
-  optional Source source = 1;
+  optional Target target = 1;
 
   /** All the automation points. */
   repeated ParamValue values = 2;
+
+  /** Whether this param is disabled. */
+  optional bool disabled = 3;
 }
 
 // Next id: 17.
