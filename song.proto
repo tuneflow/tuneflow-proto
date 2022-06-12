@@ -36,7 +36,7 @@ message AudioPluginInfo {
   optional string base64_states = 4;
 }
 
-message AutomatableParam {
+message AutomationTarget {
   enum TargetType {
     UNDEFINED = 0;
     VOLUME = 1;
@@ -44,26 +44,36 @@ message AutomatableParam {
     AUDIO_PLUGIN = 3;
   }
 
-  message Target {
-    optional TargetType type = 1;
-    optional string audio_plugin_id = 2; // Required when type is AUDIO_PLUGIN.
-    optional string param_id = 3; // Required when type is AUDIO_PLUGIN.
-  }
+  optional TargetType type = 1;
+  optional string audio_plugin_id = 2; // Required when type is AUDIO_PLUGIN.
+  optional string param_id = 3; // Required when type is AUDIO_PLUGIN.
+}
 
+/** The points and settings of an automation param. */
+message AutomationParam {
   message ParamValue {
     optional int64 tick = 1;
     /** A value between 0 to 1, the actual value needs to be multiplied by the range of this param. */
     optional float value = 2;
   }
 
-  /** Identifying which param this is automating. */
-  optional Target target = 1;
-
   /** All the automation points. */
-  repeated ParamValue values = 2;
+  repeated ParamValue values = 1;
 
   /** Whether this param is disabled. */
-  optional bool disabled = 3;
+  optional bool disabled = 2;
+}
+
+/** The automation targets specified by the user, and their values. */
+message AutomationData {
+  /** The list of targets specified by the user. */
+  repeated AutomationTarget targets = 1;
+
+  /**
+   * The actual settings and points of each target.
+   * The key is the string-encoded automation target.
+   */
+  map<string,  AutomationParam> target_values = 2;
 }
 
 // Next id: 17.
@@ -85,7 +95,7 @@ message Track {
   optional int32 pan = 14;
   optional string name = 15;
   /** Each item corresponds to one param and all its automation points. */
-  repeated AutomatableParam automation_params = 16;
+  optional AutomationData automation = 16;
 }
 
 message Clip {
