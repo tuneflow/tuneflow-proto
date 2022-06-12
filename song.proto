@@ -50,7 +50,7 @@ message AutomationTarget {
 }
 
 /** The points and settings of an automation param. */
-message AutomationParam {
+message AutomationValue {
   message ParamValue {
     optional int64 tick = 1;
     /** A value between 0 to 1, the actual value needs to be multiplied by the range of this param. */
@@ -58,7 +58,7 @@ message AutomationParam {
   }
 
   /** All the automation points. */
-  repeated ParamValue values = 1;
+  repeated ParamValue points = 1;
 
   /** Whether this param is disabled. */
   optional bool disabled = 2;
@@ -73,7 +73,7 @@ message AutomationData {
    * The actual settings and points of each target.
    * The key is the string-encoded automation target.
    */
-  map<string,  AutomationParam> target_values = 2;
+  map<string,  AutomationValue> target_values = 2;
 }
 
 // Next id: 17.
