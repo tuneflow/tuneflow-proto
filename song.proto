@@ -55,6 +55,8 @@ message AutomationValue {
     optional int64 tick = 1;
     /** A value between 0 to 1, the actual value needs to be multiplied by the range of this param. */
     optional float value = 2;
+    /** A unique id to identify this value. Scoped within this automation value. */
+    optional int32 id = 3;
   }
 
   /** All the automation points. */
