@@ -78,7 +78,15 @@ message AutomationData {
   map<string,  AutomationValue> target_values = 2;
 }
 
-// Next id: 17.
+enum TrackType {
+  UNDEFINED_TRACK = 0;
+  /** A MIDI track can only play MIDI clips. */
+  MIDI_TRACK = 1;
+  /** An Audio track can only play audio clips. */
+  AUDIO_TRACK = 2;
+}
+
+// Next id: 18.
 message Track {
   optional InstrumentInfo instrument = 1;
   repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
@@ -98,8 +106,23 @@ message Track {
   optional string name = 15;
   /** Each item corresponds to one param and all its automation points. */
   optional AutomationData automation = 16;
+  optional TrackType type = 17;
 }
 
+enum ClipType {
+  UNDEFINED_CLIP = 0;
+  /** A MIDI clip can only play MIDI notes. */
+  MIDI_CLIP = 1;
+  /** An Audio clip can only play audio files. */
+  AUDIO_CLIP = 2;
+}
+
+message AudioClipData {
+  /** Currently the local audio file path, can potentially be the URL of the audio file. */
+  optional string audio_file_path = 1;
+}
+
+// Next id: 7.
 message Clip {
   optional string id = 1;
   optional int32 clip_start_tick = 2;
@@ -107,8 +130,12 @@ message Clip {
   // Notes will use absolute ticks.
   // This will be all the notes in the clip, including
   // those that may not be in the clip's range.
+  // Needs to be present when type is MIDI_CLIP.
   repeated Note notes = 4;
   optional string name = 5;
+  optional ClipType type = 6;
+  // Needs to be present when type is AUDIO_CLIP.
+  optional AudioClipData audio_clip_data = 7;
 }
 
 message Song {
