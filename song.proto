@@ -120,6 +120,8 @@ enum ClipType {
 message AudioClipData {
   /** Currently the local audio file path, can potentially be the URL of the audio file. */
   optional string audio_file_path = 1;
+  /** Which tick the beginning of the audio is at. */
+  optional int32 start_tick = 2;
 }
 
 // Next id: 7.
