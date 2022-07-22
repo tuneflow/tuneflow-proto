@@ -122,6 +122,8 @@ message AudioClipData {
   optional string audio_file_path = 1;
   /** Which tick the beginning of the audio is at. */
   optional int32 start_tick = 2;
+  /** Duration of the audio, in seconds. */
+  optional double duration = 3;
 }
 
 // Next id: 7.
