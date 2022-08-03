@@ -92,6 +92,7 @@ message Track {
   repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
   repeated InstrumentInfo suggested_instruments = 3;
   optional string uuid = 4; // Assigned by client.
+  /** Indicates the volume slider position (0 - 1). */
   optional float volume = 5;
   optional bool solo = 6;
   optional bool muted = 7;
