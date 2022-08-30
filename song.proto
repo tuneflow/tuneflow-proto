@@ -84,6 +84,7 @@ enum TrackType {
   MIDI_TRACK = 1;
   /** An Audio track can only play audio clips. */
   AUDIO_TRACK = 2;
+  MASTER_TRACK = 3;
 }
 
 // Next id: 18.
