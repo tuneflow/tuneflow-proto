@@ -150,4 +150,6 @@ message Song {
   optional int32 last_tick = 4;
   optional float duration = 5;
   repeated Track tracks = 6;
+  /* Master track does not contain clips, it controls the overall volume and audio effects. */
+  optional Track master_track = 7;
 }
