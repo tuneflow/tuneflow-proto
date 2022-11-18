@@ -147,12 +147,12 @@ message Clip {
 message StructureMarker {
   optional int32 tick = 1;
   enum StructureType {
-    UNKNOWN = 1;
-    INTRO = 2;
-    VERSE = 3;
-    CHORUS = 4;
-    BRIDGE = 5;
-    OUTRO = 6;
+    UNKNOWN = 0;
+    INTRO = 1;
+    VERSE = 2;
+    CHORUS = 3;
+    BRIDGE = 4;
+    OUTRO = 5;
   }
   optional StructureType type = 2;
 }
