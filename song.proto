@@ -147,7 +147,7 @@ message Clip {
 message StructureMarker {
   optional int32 start_tick = 1;
   optional int32 end_tick = 2;
-  enum StructureMarkerType {
+  enum StructureType {
     UNKNOWN = 1;
     INTRO = 2;
     VERSE = 3;
@@ -155,7 +155,7 @@ message StructureMarker {
     BRIDGE = 5;
     OUTRO = 6;
   }
-  optional string label = 3;
+  optional StructureType type = 3;
 }
 
 message Song {
