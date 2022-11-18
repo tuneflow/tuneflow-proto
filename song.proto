@@ -144,6 +144,20 @@ message Clip {
   optional AudioClipData audio_clip_data = 7;
 }
 
+message StructureMarker {
+  optional int32 start_tick = 1;
+  optional int32 end_tick = 2;
+  enum StructureMarkerType {
+    UNKNOWN = 1;
+    INTRO = 2;
+    VERSE = 3;
+    CHORUS = 4;
+    BRIDGE = 5;
+    OUTRO = 6;
+  }
+  optional string label = 3;
+}
+
 message Song {
   optional int32 PPQ = 1;
   repeated TempoEvent tempos = 2;
@@ -153,4 +167,5 @@ message Song {
   repeated Track tracks = 6;
   /* Master track does not contain clips, it controls the overall volume and audio effects. */
   optional Track master_track = 7;
+  repeated StructureMarker structures = 8;
 }
