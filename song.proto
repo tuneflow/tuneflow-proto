@@ -85,9 +85,30 @@ enum TrackType {
   /** An Audio track can only play audio clips. */
   AUDIO_TRACK = 2;
   MASTER_TRACK = 3;
+  /** Aux track does not create clips, but takes bus inputs intended for mixing. */
+  AUX_TRACK = 4;
 }
 
-// Next id: 18.
+message TrackSend {
+  /** Rank of the output bus, ranges from 1 to Song.NUM_BUSES. */
+  optional int32 output_bus_rank = 1;
+  /** A float value from 0 to 1, indicating the send gain fader position. */
+  optional float gain_level = 2;
+  enum TrackSendPosition {
+    UNDEFINED_TRACK_SEND_POSITION = 0;
+    SEND_POSITION_PRE_FADER = 1;
+    SEND_POSITION_POST_FADER = 2;
+  }
+  optional TrackSendPosition position = 3;
+  optional bool muted = 4;
+}
+
+message AuxTrackData {
+  /** Rank of the input bus, ranges from 1 to Song.NUM_BUSES, only effective if the track is AUX_TRACK. */
+  optional int32 input_bus_rank = 1;
+}
+
+// Next id: 20.
 message Track {
   optional InstrumentInfo instrument = 1;
   repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
@@ -109,6 +130,10 @@ message Track {
   /** Each item corresponds to one param and all its automation points. */
   optional AutomationData automation = 16;
   optional TrackType type = 17;
+  /** Data for AUX_TRACK only. */
+  optional AuxTrackData aux_track_data = 18;
+  /** Sends data. */
+  repeated TrackSend sends = 19; 
 }
 
 enum ClipType {
@@ -157,6 +182,12 @@ message StructureMarker {
   optional StructureType type = 2;
 }
 
+message Bus {
+  /** Rank of the bus, ranges from 1 to Song.NUM_BUSES. */
+  optional int32 rank = 1;
+  optional string name = 2;
+}
+
 message Song {
   optional int32 PPQ = 1;
   repeated TempoEvent tempos = 2;
@@ -167,4 +198,5 @@ message Song {
   /* Master track does not contain clips, it controls the overall volume and audio effects. */
   optional Track master_track = 7;
   repeated StructureMarker structures = 8;
+  repeated Bus buses = 9;
 }
