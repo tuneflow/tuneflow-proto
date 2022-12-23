@@ -103,12 +103,25 @@ message TrackSend {
   optional bool muted = 4;
 }
 
+message TrackOutput {
+  enum TrackOutputType {
+    UNDEFINED_TRACK_OUTPUT_TYPE = 0;
+    TRACK_OUTPUT_DEVICE = 1;
+    TRACK_OUTPUT_TRACK = 2;
+  }
+  optional TrackOutputType type = 1;
+  /** Optional, only effective when type is TRACK_OUTPUT_TRACK. */
+  optional string track_id = 2;
+  /** Optional, only effective when type is TRACK_OUTPUT_DEVICE. */
+  optional string device_name = 3;
+}
+
 message AuxTrackData {
   /** Rank of the input bus, ranges from 1 to Song.NUM_BUSES, only effective if the track is AUX_TRACK. */
   optional int32 input_bus_rank = 1;
 }
 
-// Next id: 20.
+// Next id: 21.
 message Track {
   optional InstrumentInfo instrument = 1;
   repeated Note notes = 2 [deprecated = true]; // Deprecated, use clips instead.
@@ -122,7 +135,8 @@ message Track {
   optional int32 track_start_tick = 9; // Assigned by client.
   optional int32 track_end_tick = 10; // Assigned by client.
   optional AudioPluginInfo sampler_plugin = 11;
-  repeated AudioPluginInfo audio_plugin = 12;
+  /** Index to audio plugin map. */
+  map<int32, AudioPluginInfo> audio_plugin = 12;
   repeated Clip clips = 13;
   /** A value ranging from -64 to 63, which corresponds to midi value 0-127. */
   optional int32 pan = 14;
@@ -132,8 +146,13 @@ message Track {
   optional TrackType type = 17;
   /** Data for AUX_TRACK only. */
   optional AuxTrackData aux_track_data = 18;
-  /** Sends data. */
-  repeated TrackSend sends = 19; 
+  /** Index to track send map. */
+  map<int32, TrackSend> sends = 19;
+  /**
+    * If provided, specifies the custom output of the track.
+    * If omitted, the track outputs to the default device.
+    */
+  optional TrackOutput output = 20;
 }
 
 enum ClipType {
