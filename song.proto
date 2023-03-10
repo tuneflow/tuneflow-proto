@@ -215,6 +215,12 @@ message Bus {
   optional string name = 2;
 }
 
+message LyricCharacater {
+  optional int32 start_tick = 1;
+  optional int32 end_tick = 2;
+  optional string character = 3;
+}
+
 message Song {
   optional int32 PPQ = 1;
   repeated TempoEvent tempos = 2;
@@ -226,4 +232,5 @@ message Song {
   optional Track master_track = 7;
   repeated StructureMarker structures = 8;
   repeated Bus buses = 9;
+  repeated LyricCharacater lyrics = 10;
 }
