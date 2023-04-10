@@ -205,8 +205,14 @@ message StructureMarker {
     CHORUS = 3;
     BRIDGE = 4;
     OUTRO = 5;
+    PRE_CHORUS = 6;
+    POST_CHORUS = 7;
+    FILL = 8;
+    CUSTOM = 9;
   }
   optional StructureType type = 2;
+  /** When type is `CUSTOM`, this specifies the name of the structure. */
+  optional string custom_name = 3;
 }
 
 message Bus {
