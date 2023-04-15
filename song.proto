@@ -178,6 +178,13 @@ message AudioClipData {
   optional double duration = 3;
   /** A temporary holder of audio data used for transmitting data. Converted to local file after received by the client. If this field is set, audio_file_path can be omitted. */
   optional AudioData audio_data = 4;
+  /** 
+   * How fast this audio plays, time-stretch is applied when this ratio is set and not 1.
+   * Ranging from 0.01 to 20.0, defaults to 1.
+   */
+  optional double speed_ratio = 5;
+  /** Pitch offset in semitones, ranging from -24 to 24, defaults to 0. */
+  optional double pitch_offset = 6;
 }
 
 // Next id: 7.
