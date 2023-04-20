@@ -178,6 +178,13 @@ message AudioClipData {
   optional double duration = 3;
   /** A temporary holder of audio data used for transmitting data. Converted to local file after received by the client. If this field is set, audio_file_path can be omitted. */
   optional AudioData audio_data = 4;
+  /** 
+   * How fast this audio plays, time-stretch is applied when this ratio is set and not 1.
+   * Ranging from 0.01 to 20.0, defaults to 1.
+   */
+  optional double speed_ratio = 5;
+  /** Pitch offset in semitones, ranging from -24 to 24, defaults to 0. */
+  optional double pitch_offset = 6;
 }
 
 // Next id: 7.
@@ -205,23 +212,20 @@ message StructureMarker {
     CHORUS = 3;
     BRIDGE = 4;
     OUTRO = 5;
+    PRE_CHORUS = 6;
+    POST_CHORUS = 7;
+    FILL = 8;
+    CUSTOM = 9;
   }
   optional StructureType type = 2;
+  /** When type is `CUSTOM`, this specifies the name of the structure. */
+  optional string custom_name = 3;
 }
 
 message Bus {
   /** Rank of the bus, ranges from 1 to Song.NUM_BUSES. */
   optional int32 rank = 1;
   optional string name = 2;
-}
-
-message LyricLine {
-  message LyricWord {
-    optional int32 start_tick = 1;
-    optional int32 end_tick = 2;
-    optional string word = 3;
-  }
-  repeated LyricWord words = 1;
 }
 
 message Song {
@@ -235,5 +239,13 @@ message Song {
   optional Track master_track = 7;
   repeated StructureMarker structures = 8;
   repeated Bus buses = 9;
-  repeated LyricLine lyrics = 10;
+}
+
+message LyricLine {
+  message LyricWord {
+    optional int32 start_tick = 1;
+    optional int32 end_tick = 2;
+    optional string word = 3;
+  }
+  repeated LyricWord words = 1;
 }
