@@ -239,7 +239,11 @@ message Song {
   optional Track master_track = 7;
   repeated StructureMarker structures = 8;
   repeated Bus buses = 9;
-  repeated LyricLine lyrics = 10;
+  optional Lyrics lyrics = 10;
+}
+
+message Lyrics {
+  repeated LyricLine lyrics = 1;
 }
 
 message LyricLine {
