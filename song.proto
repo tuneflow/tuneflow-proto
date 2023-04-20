@@ -239,4 +239,18 @@ message Song {
   optional Track master_track = 7;
   repeated StructureMarker structures = 8;
   repeated Bus buses = 9;
+  optional Lyrics lyrics = 10;
+}
+
+message Lyrics {
+  repeated LyricLine lyrics = 1;
+}
+
+message LyricLine {
+  message LyricWord {
+    optional int32 start_tick = 1;
+    optional int32 end_tick = 2;
+    optional string word = 3;
+  }
+  repeated LyricWord words = 1;
 }
